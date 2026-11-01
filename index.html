@@ -67,7 +67,7 @@
     <p class="subtitle">Reusing parts from Genesis (2019)</p>
   </header>
   <div class="progress-card">
-    <div class="progress-header"><span>Build Progress</span><span id="progress-text">0 / 16</span></div>
+    <div class="progress-header"><span>Build Progress</span><span id="progress-text">0 / 15</span></div>
     <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
     <div class="totals">
       <div class="total-item"><div class="total-label">Purchased</div><div class="total-value purchased" id="val-purchased">$0.00</div></div>
@@ -87,21 +87,9 @@
         <span class="section-count" id="count-amazon">0/8</span>
         <span class="section-total" id="total-amazon">$0</span>
       </span>
-      <div class="section-sub">Cart total $813.40 + tax</div>
+      <div class="section-sub">Cart total $968.99 + tax</div>
     </div>
     <div class="card" id="amazon-list"></div>
-  </section>
-  <section>
-    <div class="section-header">
-      <span>🥚</span>
-      <span class="section-title">Newegg Cart</span>
-      <span class="section-meta">
-        <span class="section-count" id="count-newegg">0/1</span>
-        <span class="section-total" id="total-newegg">$0</span>
-      </span>
-      <div class="section-sub">Cart total $249.99 + tax</div>
-    </div>
-    <div class="card" id="newegg-list"></div>
   </section>
   <section>
     <div class="section-header">
@@ -111,7 +99,7 @@
         <span class="section-count" id="count-mc">0/3</span>
         <span class="section-total" id="total-mc">$0</span>
       </span>
-      <div class="section-sub">Cart total $1,369.97 + tax</div>
+      <div class="section-sub">Cart total $1,359.97 + tax</div>
     </div>
     <div class="card" id="mc-list"></div>
   </section>
@@ -151,27 +139,24 @@
       ],
       amazon: [
         {id:"storage",name:"Seagate 2TB Portable Hard Drive",desc:"2TB Portable Hard Drive",price:"$129.99",cost:129.99},
-        {id:"keyboard",name:"Logitech G PRO Mechanical TKL",desc:"Tenkeyless Gaming Keyboard (Clicky)",price:"$109.99",cost:109.99},
+        {id:"keyboard",name:"Logitech G PRO Mechanical TKL",desc:"Tenkeyless Gaming Keyboard (Clicky)",price:"$89.99",cost:89.99},
         {id:"mouse",name:"Logitech G703 LIGHTSPEED",desc:"Wireless Gaming Mouse",price:"$55.99",cost:55.99},
-        {id:"hub",name:"NZXT Control Hub",desc:"RGB Lighting & PWM Fan Controller",price:"$49.99",cost:49.99},
+        {id:"monitor",name:"KTC 34\" Ultrawide Curved",desc:"3440x1440 UWQHD 180 Hz · H34S5",price:"$259.99",cost:259.99},
         {id:"fan-single",name:"Lian Li UNI Fan SL-Infinity 120mm",desc:"Single Pack ARGB Fan",price:"$27.48",cost:27.48},
         {id:"fan-triple",name:"Lian Li UNI Fan SL-Infinity 120mm",desc:"SLIN120 Triple Pack Black x2",price:"$69.99 x2",cost:139.98},
-        {id:"case",name:"Lian Li O11 Vision Compact",desc:"ATX PC Case, Back-Connect, Black (O11VPX)",price:"$169.99",cost:169.99},
+        {id:"case",name:"Lian Li O11 Vision Compact",desc:"ATX PC Case, Back-Connect, Black (O11VPX)",price:"$135.58",cost:135.58},
         {id:"headset",name:"Logitech G522 Lightspeed Wireless",desc:"Wireless Gaming Headset - Black",price:"$129.99",cost:129.99}
-      ],
-      newegg: [
-        {id:"monitor",name:"KTC 34\" Ultrawide Curved",desc:"3440x1440 UWQHD 180 Hz · H34S5",price:"$249.99",cost:249.99}
       ],
       microcenter: [
         {id:"bundle",name:"CPU + MB + RAM Bundle",desc:"Ryzen 7 7800X3D · Gigabyte X870 Gaming WiFi6 · G.Skill Flare X5 32GB DDR5-6000",price:"$779.99",cost:779.99},
         {id:"psu",name:"MSI MAG A750GL PCIE5",desc:"750 W 80+ Gold Fully Modular",price:"$109.99",cost:109.99},
-        {id:"gpu",name:"MSI GeForce RTX 5060 Ti SHADOW 2X OC PLUS",desc:"8GB GDDR7 Dual Fan PCIe 5.0",price:"$479.99",cost:479.99}
+        {id:"gpu",name:"MSI GeForce RTX 5060 Ti SHADOW 2X OC PLUS",desc:"8GB GDDR7 Dual Fan PCIe 5.0",price:"$469.99",cost:469.99}
       ],
       corsair: [
         {id:"cooler",name:"CORSAIR NAUTILUS II 360 RS ARGB",desc:"360mm AIO Liquid CPU Cooler",price:"$129.99",cost:129.99}
       ]
     };
-    function allItems(){ return DATA.owned.concat(DATA.amazon, DATA.newegg, DATA.microcenter, DATA.corsair); }
+    function allItems(){ return DATA.owned.concat(DATA.amazon, DATA.microcenter, DATA.corsair); }
     function money(n){ return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
     function sectionRemaining(arr){
       var sum = 0;
@@ -188,7 +173,6 @@
     function render(){
       document.getElementById("owned-list").innerHTML = DATA.owned.map(renderItem).join("");
       document.getElementById("amazon-list").innerHTML = DATA.amazon.map(renderItem).join("");
-      document.getElementById("newegg-list").innerHTML = DATA.newegg.map(renderItem).join("");
       document.getElementById("mc-list").innerHTML = DATA.microcenter.map(renderItem).join("");
       document.getElementById("corsair-list").innerHTML = DATA.corsair.map(renderItem).join("");
       updateProgress();
@@ -211,11 +195,9 @@
       function c(a){ return a.filter(function(i){ return state[i.id]; }).length+'/'+a.length; }
       document.getElementById("count-owned").textContent = c(DATA.owned);
       document.getElementById("count-amazon").textContent = c(DATA.amazon);
-      document.getElementById("count-newegg").textContent = c(DATA.newegg);
       document.getElementById("count-mc").textContent = c(DATA.microcenter);
       document.getElementById("count-corsair").textContent = c(DATA.corsair);
       document.getElementById("total-amazon").textContent = money(sectionRemaining(DATA.amazon));
-      document.getElementById("total-newegg").textContent = money(sectionRemaining(DATA.newegg));
       document.getElementById("total-mc").textContent = money(sectionRemaining(DATA.microcenter));
       document.getElementById("total-corsair").textContent = money(sectionRemaining(DATA.corsair));
     }
