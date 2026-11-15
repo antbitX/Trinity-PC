@@ -35,6 +35,7 @@
     .section-sub { font-size:11px; color:var(--text-muted); width:100%; margin-top:2px; padding-left:28px; }
     .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--card-radius); overflow:hidden; }
     .item { display:flex; align-items:flex-start; gap:12px; padding:14px; border-bottom:1px solid var(--border); }
+    .item.tint { background:rgba(124,92,255,0.08); }
     .item:last-child { border-bottom:none; }
     .item.checked { opacity:.55; }
     .item.checked .item-name { text-decoration:line-through; color:var(--text-muted); }
@@ -166,9 +167,12 @@
     function loadState(){ try { return JSON.parse(localStorage.getItem("trinity-checks")||"{}"); } catch(e){ return {}; } }
     function saveState(s){ try { localStorage.setItem("trinity-checks", JSON.stringify(s)); } catch(e){} }
     var state = loadState();
+    // Highlighted classification (soft tint): fans, PSU, GPU, cooler, bundle, case — per AB 2026-11-15. All other items render unchanged.
+    var TINT = ["fan-single","fan-triple","psu","gpu","cooler","bundle","case"];
     function renderItem(item){
       var checked = !!state[item.id];
-      return '<div class="item '+(checked?'checked':'')+'"><div class="check-wrap"><input type="checkbox" '+(checked?'checked':'')+' onchange="toggle(\''+item.id+'\')" /><div class="checkmark"></div></div><div><div class="item-name">'+item.name+'</div><div class="item-meta">'+item.desc+'</div><div class="item-meta" style="margin-top:4px"><span class="price">'+item.price+'</span></div></div></div>';
+      var tint = TINT.indexOf(item.id) >= 0 ? ' tint' : '';
+      return '<div class="item '+(checked?'checked':'')+tint+'"><div class="check-wrap"><input type="checkbox" '+(checked?'checked':'')+' onchange="toggle(\''+item.id+'\')" /><div class="checkmark"></div></div><div><div class="item-name">'+item.name+'</div><div class="item-meta">'+item.desc+'</div><div class="item-meta" style="margin-top:4px"><span class="price">'+item.price+'</span></div></div></div>';
     }
     function render(){
       document.getElementById("owned-list").innerHTML = DATA.owned.map(renderItem).join("");
